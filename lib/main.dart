@@ -4,7 +4,10 @@ import 'theme/app_theme.dart';
 import 'pages/splash_screen.dart';
 import 'pages/hero_section.dart';
 import 'pages/products_section.dart';
-import 'widget/navbar.dart'; // was 'widgets/navbar.dart'
+import 'pages/about_section.dart';
+import 'pages/order_section.dart';
+import 'pages/contact_section.dart';
+import 'widget/navbar.dart';
 
 void main() {
   runApp(const EmysCosmeticsApp());
@@ -16,7 +19,7 @@ class EmysCosmeticsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Emy's Cosmetics",
+      title: "Dr Emy's Cosmetics",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: AppTheme.bgPage,
@@ -40,6 +43,7 @@ class _MainWebsiteLayoutState extends State<MainWebsiteLayout> {
   final ScrollController _scrollCtrl = ScrollController();
   final GlobalKey _productsKey = GlobalKey();
   final GlobalKey _aboutKey = GlobalKey();
+  final GlobalKey _orderKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
 
   @override
@@ -64,26 +68,15 @@ class _MainWebsiteLayoutState extends State<MainWebsiteLayout> {
                 ),
                 Container(
                   key: _aboutKey,
-                  height: 400,
-                  color: Colors.white,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "About Us Section\n(Build this next!)",
-                    textAlign: TextAlign.center,
-                    style: AppTheme.headingMedium
-                        .copyWith(color: AppTheme.textMid),
-                  ),
+                  child: const AboutSection(),
+                ),
+                Container(
+                  key: _orderKey,
+                  child: const OrderSection(),
                 ),
                 Container(
                   key: _contactKey,
-                  height: 300,
-                  color: AppTheme.bgSection,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Footer & Contact Info",
-                    style: AppTheme.headingMedium
-                        .copyWith(color: AppTheme.textMid),
-                  ),
+                  child: const ContactSection(),
                 ),
               ],
             ),
@@ -97,6 +90,7 @@ class _MainWebsiteLayoutState extends State<MainWebsiteLayout> {
                 scrollCtrl: _scrollCtrl,
                 productsKey: _productsKey,
                 aboutKey: _aboutKey,
+                orderKey: _orderKey,
                 contactKey: _contactKey,
               ),
             ),

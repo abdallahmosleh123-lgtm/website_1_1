@@ -130,30 +130,9 @@ class _LogoWithShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(alignment: Alignment.center, children: [
-      ELogoWidget(
-          size: 150, showText: true), // شيلنا كلمة const من هنا والمشكلة اتحلت
-      AnimatedBuilder(
-        animation: shimmer,
-        builder: (_, __) => ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
-            colors: const [
-              Color(0x00FFFFFF), // أبيض شفاف 0%
-              Color(0x80FFFFFF), // أبيض شفاف 50% (بديل withOpacity)
-              Color(0x00FFFFFF), // أبيض شفاف 0%
-            ],
-            stops: const [0, 0.5, 1],
-            begin: Alignment(shimmer.value - 1, -0.3),
-            end: Alignment(shimmer.value, 0.3),
-          ).createShader(bounds),
-          blendMode: BlendMode.srcATop,
-          child: Container(
-            width: 300,
-            height: 150,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    ]);
+    // The old ShaderMask + white Container shimmer effect rendered as a
+    // solid opaque white block on Flutter Web instead of a soft light
+    // sweep, hiding the logo. Removed — the logo now renders cleanly.
+    return const ELogoWidget(size: 150, showText: true);
   }
 }

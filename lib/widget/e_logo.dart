@@ -17,7 +17,25 @@ class ELogoWidget extends StatelessWidget {
         SizedBox(
           width: size,
           height: size,
-          child: CustomPaint(painter: _ELogoPainter()),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              CustomPaint(
+                size: Size(size, size),
+                painter: _ELogoPainter(),
+              ),
+              Text(
+                'DE',
+                style: TextStyle(
+                  fontFamily: 'PlayfairDisplay',
+                  fontSize: size * 0.34,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
         ),
         if (showText) ...[
           const SizedBox(width: 14),
@@ -28,7 +46,7 @@ class ELogoWidget extends StatelessWidget {
               ShaderMask(
                 shaderCallback: (b) => AppTheme.brandGradient.createShader(b),
                 child: Text(
-                  "emy's",
+                  "Dr Emy",
                   style: TextStyle(
                     fontFamily: 'PlayfairDisplay',
                     fontSize: size * 0.45,
@@ -60,7 +78,7 @@ class _ELogoPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final cx = size.width / 2;
     final cy = size.height / 2;
-    final r = size.width * 0.46;
+    final r = size.width * 0.48;
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
 
     // ── Gradient circle background ──────────────────────────────────────────
@@ -82,52 +100,6 @@ class _ELogoPainter extends CustomPainter {
         radius: 0.7,
       ).createShader(rect);
     canvas.drawCircle(Offset(cx, cy * 0.7), r * 0.6, glowPaint);
-
-    // ── Geometric E ─────────────────────────────────────────────────────────
-    final ePaint = Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.fill;
-
-    final sw = size.width * 0.07; // stroke/bar thickness
-    final left = cx - size.width * 0.18;
-    final right = cx + size.width * 0.16;
-    final top = cy - size.height * 0.26;
-    final bottom = cy + size.height * 0.26;
-    final midY = cy - size.height * 0.01;
-    final midRight = cx + size.width * 0.09; // middle bar is shorter
-
-    // Vertical spine
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(left, top, sw, bottom - top),
-        const Radius.circular(2),
-      ),
-      ePaint,
-    );
-    // Top bar
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(left, top, right - left, sw),
-        const Radius.circular(2),
-      ),
-      ePaint,
-    );
-    // Middle bar (slightly shorter)
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(left, midY - sw / 2, midRight - left, sw),
-        const Radius.circular(2),
-      ),
-      ePaint,
-    );
-    // Bottom bar
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(left, bottom - sw, right - left, sw),
-        const Radius.circular(2),
-      ),
-      ePaint,
-    );
   }
 
   @override

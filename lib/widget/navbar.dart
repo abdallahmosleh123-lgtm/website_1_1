@@ -8,6 +8,7 @@ class NavBar extends StatefulWidget {
   final ScrollController scrollCtrl;
   final GlobalKey productsKey;
   final GlobalKey aboutKey;
+  final GlobalKey orderKey;
   final GlobalKey contactKey;
 
   const NavBar({
@@ -15,6 +16,7 @@ class NavBar extends StatefulWidget {
     required this.scrollCtrl,
     required this.productsKey,
     required this.aboutKey,
+    required this.orderKey,
     required this.contactKey,
   });
 
@@ -56,7 +58,7 @@ class _NavBarState extends State<NavBar> {
         const SizedBox(width: 10),
         ShaderMask(
           shaderCallback: (b) => AppTheme.brandGradient.createShader(b),
-          child: Text("emy's",
+          child: Text("Dr Emy",
               style: GoogleFonts.playfairDisplay(
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
@@ -69,7 +71,7 @@ class _NavBarState extends State<NavBar> {
           _Link('Contact Us', () => _goto(widget.contactKey)),
           const SizedBox(width: 16),
         ],
-        _OrderBtn(() => _goto(widget.contactKey)),
+        _OrderBtn(() => _goto(widget.orderKey)),
       ]),
     );
   }
